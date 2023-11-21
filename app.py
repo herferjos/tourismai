@@ -64,10 +64,12 @@ client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae
 coords = ((80.21787585263182,6.025423265401452),(80.23990263756545,6.018498276842677))
 
 @st.cache_data(persist="disk")
-def get_route(cords):
-    return client.directions(coords)['routes'][0]['geometry']
+def get_route(coords):
+    return client.directions(coords)
 
-decoded = convert.decode_polyline(get_route(coords))
+res = get_route(coords)
+
+decoded = convert.decode_polyline(res['routes'][0]['geometry'])
 
 distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
 duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
