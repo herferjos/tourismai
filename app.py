@@ -21,7 +21,7 @@ else:
     centro = [41.38879, 2.15899]
 
 # m = folium.Map(location=[coords['coords'][0][1],coords['coords'][0][0]] , zoom_start=12, control_scale=True, tiles="cartodbpositron")
-m = folium.Map(location=[coords['coords'][0][1],coords['coords'][0][0]], zoom_start = 13)
+m = folium.Map(location=[coords['coords'][0][1],coords['coords'][0][0]], zoom_start = 15)
 for i, lugar in enumerate(coords['lugares']):
     folium.Marker(
         location=coords['coords'][i][::-1],
