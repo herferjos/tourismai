@@ -75,7 +75,7 @@ decoded = convert.decode_polyline(res['routes'][0]['geometry'])
 distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
 duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
 
-m = folium.Map(location=[40.4168, -3.7034],zoom_start=20, control_scale=True,tiles="cartodbpositron")
+m = folium.Map(location=[6.025423265401452, 80.21787585263182],zoom_start=50, control_scale=True,tiles="cartodbpositron")
 folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=300)).add_to(m)
 
 folium.Marker(
