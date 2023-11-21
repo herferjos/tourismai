@@ -18,7 +18,7 @@ else:
     coords = {
         'lugares': ['barcelona_parque_guell', 'barcelona_sagrada_familia', 'barcelona_casa_batllo', 'barcelona_las_ramblas', 'barcelona_camp_nou'],
         'coords': [(2.1527,41.41449), (2.17435, 41.40363), (2.16477, 41.39164), (2.1677, 41.38096), (2.12282, 41.3809)]}
-    centro = [41.40338, 2.17403]
+    centro = [41.38879, 2.15899]
 
 m = folium.Map(location=centro, zoom_start=14, control_scale=True, tiles="cartodbpositron")
 
