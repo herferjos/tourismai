@@ -11,14 +11,17 @@ ciudad = st.selectbox("Selecciona la ciudad", ["Madrid", "Barcelona"])
 
 if ciudad == "Madrid":
     coords = {
-        'lugares': ['madrid_museo_del_prado', 'madrid_puerta_del_sol', 'madrid_plaza_mayor', 'madrid_el_retiro', 'madrid_palacio_real'],
-        'coords': [(-3.6923, 40.41378), (-3.70325, 40.41673), (-3.70742, 40.41536), (-3.68422, 40.41543), (-3.71426, 40.41794)]}
+            'lugares': ['madrid_museo_del_prado', 'madrid_puerta_del_sol', 'madrid_plaza_mayor', 'madrid_el_retiro', 'madrid_palacio_real'],
+            'coords': [(-3.6923, 40.41378), (-3.70325, 40.41673), (-3.70742, 40.41536), (-3.68282, 40.41543), (-3.71426, 40.41794)]} 
     centro = [40.4165, -3.70256]
 else:
     coords = {
         'lugares': ['barcelona_parque_guell', 'barcelona_sagrada_familia', 'barcelona_casa_batllo', 'barcelona_las_ramblas', 'barcelona_camp_nou'],
-        'coords': [(2.1527,41.41449), ( 2.17435, 41.40363), (2.16477, 41.39164), (2.1677, 41.38096), (2.12282, 41.3809)]}
+        'coords': [(2.1527,41.41449), (2.17435, 41.40363), (2.16477, 41.39164), (2.1677, 41.38096), (2.12282, 41.3809)]}
     centro = [41.40338, 2.17403]
+
+
+
 
 m = folium.Map(location=centro, zoom_start=14, control_scale=True, tiles="cartodbpositron")
 
