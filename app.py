@@ -61,7 +61,11 @@ client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae
 
 
 coords = ((80.21787585263182,6.025423265401452),(80.23990263756545,6.018498276842677))
-res = client.directions(coords)
+
+@st.cache_data(persist="disk")
+def get_route(cords):
+    res = client.directions(coords)
+    return res
 geometry = client.directions(coords)['routes'][0]['geometry']
 decoded = convert.decode_polyline(geometry)
 
