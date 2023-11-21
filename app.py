@@ -40,7 +40,6 @@ for i in range(len(coords['lugares']) - 1):
     distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
     duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
     
-    folium.PolyLine(decoded, color="blue", weight=2.5, opacity=1).add_to(m)
-    folium.Marker(location=route_coords[1][::-1], popup=distance_txt + duration_txt, icon=None).add_to(m)
+    folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=300)).add_to(m)
 
 st_folium(m, width=2000)
