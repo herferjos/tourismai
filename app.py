@@ -84,7 +84,7 @@ folium.Marker(
 ).add_to(m)
 
 
-st_folium(m, max_width = 800)
+st_folium(m, width = 1000)
 
 # import folium
 # from streamlit_folium import st_folium
