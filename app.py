@@ -32,14 +32,13 @@ for i, lugar in enumerate(coords['lugares']):
 for i in range(len(coords['lugares']) - 1):
     route_coords = tuple(coords['coords'][i:i + 2])
     
-    # Llama a tu función get_route con el formato correcto
     route = get_route(route_coords)
+    geometry = route['routes'][0]['geometry']
+    decoded = convert.decode_polyline(geometry)
 
-    # Puedes ajustar esta parte según el formato real de tus resultados
-    decoded = route['geometry']
     
-    distance_txt = f"<h4><b>Distancia: {round(route['distance'] / 1000, 1)} Km</b></h4>"
-    duration_txt = f"<h4><b>Duración: {round(route['duration'] / 60, 1)} Minutos</b></h4>"
+    distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
+    duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
     
     folium.PolyLine(decoded, color="blue", weight=2.5, opacity=1).add_to(m)
     folium.Marker(location=route_coords[1][::-1], popup=distance_txt + duration_txt, icon=None).add_to(m)
