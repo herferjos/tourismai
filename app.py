@@ -51,54 +51,68 @@
 # # Mostrar el mapa en Streamlit
 # st.pydeck_chart(deck)
 
-
-# Importar la biblioteca Folium
 import folium
 from streamlit_folium import st_folium
 import openrouteservice
 
-# Crear un objeto Client con la clave de API
 client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae23bc126f3e9164')
+res = client.directions(coords)
+#set location coordinates in longitude,latitude order
+coords = ((80.21787585263182,6.025423265401452),(80.23929481745174,6.019639381180123))
 
-# Definir los puntos de interés y sus coordenadas
-puntos = [
-    ("Puerta del Sol", [40.4168, -3.7034]),
-    ("Plaza Mayor", [40.4154, -3.7074]),
-    ("Palacio Real", [40.4179, -3.7143]),
-    ("Templo de Debod", [40.4240, -3.7178]),
-    ("Parque del Retiro", [40.4146, -3.6846]),
-    ("Museo del Prado", [40.4138, -3.6922])
-]
+geometry = client.directions(coords)['routes'][0]['geometry']
+decoded = convert.decode_polyline(geometry)
+m = folium.Map(location=[6.074834613830474, 80.25749815575348],zoom_start=10, control_scale=True,tiles="cartodbpositron")
+folium.GeoJson(decoded).add_to(m)
 
-# Obtener la ruta óptima entre los puntos de interés usando el método directions
-ruta = client.directions(
-    coordinates=[coordenadas for punto, coordenadas in puntos],
-    profile='foot-walking',
-    optimize_waypoints=True
-)
 
-# Decodificar la geometría de la ruta a un objeto GeoJSON
-geometria = ruta['routes'][0]['geometry']
-geometria = openrouteservice.convert.decode_polyline(geometria)
 
-# Crear un objeto Map con la ubicación inicial y el nivel de zoom
-mapa = folium.Map(location=[40.4167, -3.70325], zoom_start=13)
+# import folium
+# from streamlit_folium import st_folium
+# import openrouteservice
 
-# Añadir los puntos de interés al mapa como marcadores
-for punto, coordenadas in puntos:
-    folium.Marker(
-        location=coordenadas,
-        icon=folium.Icon(color="red"),
-        popup=punto
-    ).add_to(mapa)
+# # Crear un objeto Client con la clave de API
+# client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae23bc126f3e9164')
 
-# Añadir la ruta al mapa como una línea
-folium.PolyLine(
-    locations=geometria['coordinates'],
-    color="blue",
-    weight=3,
-    dash_array="5, 5"
-).add_to(mapa)
+# # Definir los puntos de interés y sus coordenadas
+# puntos = [
+#     ("Puerta del Sol", [40.4168, -3.7034]),
+#     ("Plaza Mayor", [40.4154, -3.7074]),
+#     ("Palacio Real", [40.4179, -3.7143]),
+#     ("Templo de Debod", [40.4240, -3.7178]),
+#     ("Parque del Retiro", [40.4146, -3.6846]),
+#     ("Museo del Prado", [40.4138, -3.6922])
+# ]
 
-# Mostrar el mapa en la aplicación de Streamlit
-st_folium(mapa)
+# # Obtener la ruta óptima entre los puntos de interés usando el método directions
+# ruta = client.directions(
+#     coordinates=[coordenadas for punto, coordenadas in puntos],
+#     profile='foot-walking',
+#     optimize_waypoints=True
+# )
+
+# # Decodificar la geometría de la ruta a un objeto GeoJSON
+# geometria = ruta['routes'][0]['geometry']
+# geometria = openrouteservice.convert.decode_polyline(geometria)
+
+# # Crear un objeto Map con la ubicación inicial y el nivel de zoom
+# mapa = folium.Map(location=[40.4167, -3.70325], zoom_start=13)
+
+# # Añadir los puntos de interés al mapa como marcadores
+# for punto, coordenadas in puntos:
+#     folium.Marker(
+#         location=coordenadas,
+#         icon=folium.Icon(color="red"),
+#         popup=punto
+#     ).add_to(mapa)
+
+# # Añadir la ruta al mapa como una línea
+# folium.PolyLine(
+#     locations=geometria['coordinates'],
+#     color="blue",
+#     weight=3,
+#     dash_array="5, 5"
+# ).add_to(mapa)
+
+# # Mostrar el mapa en la aplicación de Streamlit
+# st_folium(mapa)
