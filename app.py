@@ -21,6 +21,13 @@ else:
     centro = [41.40338, 2.17403]
 
 
+import random
+
+def style_function(feature):
+    return {
+        "color": random.choice(["red", "blue", "green", "yellow", "orange"]),
+        "dashArray": "5, 5",
+    }
 
 
 m = folium.Map(location=centro, zoom_start=14, control_scale=True, tiles="cartodbpositron")
@@ -43,6 +50,6 @@ for i in range(len(coords['lugares']) - 1):
     distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
     duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
     
-    folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
+    folium.GeoJson(decoded,style_function=style_function,highlight_function=lambda feature: {"fillcolor": "green", "color": "green"}).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
 
 st_folium(m, width=2000)
