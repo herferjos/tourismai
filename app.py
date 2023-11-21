@@ -58,7 +58,7 @@ from streamlit_folium import st_folium
 import openrouteservice
 
 # Crear un objeto Client con la clave de API
-client = openrouteservice.Client(key='TU_CLAVE_DE_API')
+client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae23bc126f3e9164')
 
 # Definir los puntos de interés y sus coordenadas
 puntos = [
