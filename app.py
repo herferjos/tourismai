@@ -50,3 +50,45 @@ deck = pdk.Deck(
 
 # Mostrar el mapa en Streamlit
 st.pydeck_chart(deck)
+
+
+# Importar la biblioteca Folium
+import folium
+
+# Crear un objeto Map con la ubicación inicial y el nivel de zoom
+mapa = folium.Map(location=[40.4167, -3.70325], zoom_start=13)
+
+# Definir los puntos de interés y sus coordenadas
+puntos = [
+    ("Puerta del Sol", [40.4168, -3.7034]),
+    ("Plaza Mayor", [40.4154, -3.7074]),
+    ("Palacio Real", [40.4179, -3.7143]),
+    ("Templo de Debod", [40.4240, -3.7178]),
+    ("Parque del Retiro", [40.4146, -3.6846]),
+    ("Museo del Prado", [40.4138, -3.6922])
+]
+
+# Añadir los puntos de interés al mapa como marcadores
+for punto, coordenadas in puntos:
+    folium.Marker(
+        location=coordenadas,
+        icon=folium.Icon(color="red"),
+        popup=punto
+    ).add_to(mapa)
+
+# Calcular la ruta óptima entre los puntos de interés
+# Aquí se podría usar algún algoritmo como el problema del viajante o el algoritmo de Dijkstra
+# Por simplicidad, se asume que la ruta es la misma que el orden de los puntos
+ruta = [coordenadas for punto, coordenadas in puntos]
+
+# Añadir la ruta al mapa como una línea
+folium.PolyLine(
+    locations=ruta,
+    color="blue",
+    weight=3,
+    dash_array="5, 5"
+).add_to(mapa)
+
+# Guardar el mapa como un archivo HTML
+mapa.save("mapa.html")
+
