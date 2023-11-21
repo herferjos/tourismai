@@ -89,6 +89,5 @@ folium.PolyLine(
     dash_array="5, 5"
 ).add_to(mapa)
 
-# Guardar el mapa como un archivo HTML
-mapa.save("mapa.html")
-
+# Mostrar el mapa en la aplicación de Streamlit
+st.folium_static(mapa)
