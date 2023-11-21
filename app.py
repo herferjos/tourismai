@@ -56,6 +56,7 @@ from streamlit_folium import st_folium
 import openrouteservice
 from openrouteservice import convert
 import json
+import streamlit as st
 
 client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae23bc126f3e9164')
 
@@ -65,13 +66,13 @@ coords = ((80.21787585263182,6.025423265401452),(80.23990263756545,6.01849827684
 @st.cache_data(persist="disk")
 def get_route(cords):
     return client.directions(coords)['routes'][0]['geometry']
-    
+
 decoded = convert.decode_polyline(get_route(coords))
 
 distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
 duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
 
-m = folium.Map(location=[6.074834613830474, 80.25749815575348],zoom_start=100, control_scale=True,tiles="cartodbpositron")
+m = folium.Map(location=[6.074834613830474, 80.25749815575348],zoom_start=50, control_scale=True,tiles="cartodbpositron")
 folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=300)).add_to(m)
 
 folium.Marker(
