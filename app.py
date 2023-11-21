@@ -55,9 +55,10 @@ st.pydeck_chart(deck)
 # Importar la biblioteca Folium
 import folium
 from streamlit_folium import st_folium
+import openrouteservice
 
-# Crear un objeto Map con la ubicación inicial y el nivel de zoom
-mapa = folium.Map(location=[40.4167, -3.70325], zoom_start=13)
+# Crear un objeto Client con la clave de API
+client = openrouteservice.Client(key='TU_CLAVE_DE_API')
 
 # Definir los puntos de interés y sus coordenadas
 puntos = [
@@ -69,6 +70,20 @@ puntos = [
     ("Museo del Prado", [40.4138, -3.6922])
 ]
 
+# Obtener la ruta óptima entre los puntos de interés usando el método directions
+ruta = client.directions(
+    coordinates=[coordenadas for punto, coordenadas in puntos],
+    profile='foot-walking',
+    optimize_waypoints=True
+)
+
+# Decodificar la geometría de la ruta a un objeto GeoJSON
+geometria = ruta['routes'][0]['geometry']
+geometria = openrouteservice.convert.decode_polyline(geometria)
+
+# Crear un objeto Map con la ubicación inicial y el nivel de zoom
+mapa = folium.Map(location=[40.4167, -3.70325], zoom_start=13)
+
 # Añadir los puntos de interés al mapa como marcadores
 for punto, coordenadas in puntos:
     folium.Marker(
@@ -77,14 +92,9 @@ for punto, coordenadas in puntos:
         popup=punto
     ).add_to(mapa)
 
-# Calcular la ruta óptima entre los puntos de interés
-# Aquí se podría usar algún algoritmo como el problema del viajante o el algoritmo de Dijkstra
-# Por simplicidad, se asume que la ruta es la misma que el orden de los puntos
-ruta = [coordenadas for punto, coordenadas in puntos]
-
 # Añadir la ruta al mapa como una línea
 folium.PolyLine(
-    locations=ruta,
+    locations=geometria['coordinates'],
     color="blue",
     weight=3,
     dash_array="5, 5"
