@@ -54,6 +54,7 @@ st.pydeck_chart(deck)
 
 # Importar la biblioteca Folium
 import folium
+from streamlit_folium import st_folium
 
 # Crear un objeto Map con la ubicación inicial y el nivel de zoom
 mapa = folium.Map(location=[40.4167, -3.70325], zoom_start=13)
@@ -90,4 +91,4 @@ folium.PolyLine(
 ).add_to(mapa)
 
 # Mostrar el mapa en la aplicación de Streamlit
-st.folium_static(mapa)
+st_folium(mapa)
