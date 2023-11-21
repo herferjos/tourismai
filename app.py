@@ -56,10 +56,7 @@ from streamlit_folium import st_folium
 import openrouteservice
 
 client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae23bc126f3e9164')
-res = client.directions(coords)
-#set location coordinates in longitude,latitude order
 coords = ((80.21787585263182,6.025423265401452),(80.23929481745174,6.019639381180123))
-
 geometry = client.directions(coords)['routes'][0]['geometry']
 decoded = convert.decode_polyline(geometry)
 m = folium.Map(location=[6.074834613830474, 80.25749815575348],zoom_start=10, control_scale=True,tiles="cartodbpositron")
