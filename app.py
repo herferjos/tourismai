@@ -26,7 +26,7 @@ marker_layer = pdk.Layer(
     type="ScatterplotLayer",
     data=df,
     get_position="[lon, lat]",
-    get_radius=50000,
+    get_radius=500,
     get_color=[255, 0, 0],
     pickable=True
 )
