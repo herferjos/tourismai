@@ -64,10 +64,9 @@ coords = ((80.21787585263182,6.025423265401452),(80.23990263756545,6.01849827684
 
 @st.cache_data(persist="disk")
 def get_route(cords):
-    res = client.directions(coords)
-    return res
-geometry = client.directions(coords)['routes'][0]['geometry']
-decoded = convert.decode_polyline(geometry)
+    return client.directions(coords)['routes'][0]['geometry']
+    
+decoded = convert.decode_polyline(get_route(coords))
 
 distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
 duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(res['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
