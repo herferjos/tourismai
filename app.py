@@ -20,7 +20,7 @@ else:
         'coords': [(2.1527,41.41449), (2.17435, 41.40363), (2.16477, 41.39164), (2.1677, 41.38096), (2.12282, 41.3809)]}
     centro = [41.38879, 2.15899]
 
-m = folium.Map(location=[coords['coords'][0][1],coords['coords'][0][0]], zoom_start = 16)
+m = folium.Map(location=[coords['coords'][0][1],coords['coords'][0][0]], zoom_start = 14)
 for i, lugar in enumerate(coords['lugares']):
     folium.Marker(
         location=coords['coords'][i][::-1],
