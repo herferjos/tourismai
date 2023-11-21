@@ -20,15 +20,6 @@ else:
         'coords': [(2.1527,41.41449), (2.17435, 41.40363), (2.16477, 41.39164), (2.1677, 41.38096), (2.12282, 41.3809)]}
     centro = [41.40338, 2.17403]
 
-
-import random
-
-def style_function():
-    colors = ['#ffffbf', '#a6bddb', '#fdae61', '#fee08b', '#d73027']
-    color = random.choice(colors)
-    return {'lineColor': color}
-
-
 m = folium.Map(location=centro, zoom_start=14, control_scale=True, tiles="cartodbpositron")
 
 for i, lugar in enumerate(coords['lugares']):
@@ -44,11 +35,9 @@ for i in range(len(coords['lugares']) - 1):
     route = get_route(route_coords)
     geometry = route['routes'][0]['geometry']
     decoded = convert.decode_polyline(geometry)
-
-    style = style_function()
     distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
     duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
     
-    folium.GeoJson(decoded, style_function = lambda x: style).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
+    folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
 
 st_folium(m, width=2000)
