@@ -4,6 +4,7 @@ from openai import OpenAI
 from langchain.tools import DuckDuckGoSearchRun
 import json
 import folium
+from openrouteservice import convert
 
 client = OpenAI(api_key = st.secrets['openai_key'])
 
