@@ -36,7 +36,7 @@ def get_planning(city, recommendations, duration, horas, extra):
         respuesta['coordenadas'] = []
 
         for lugar in respuesta['places']:
-            query = f"coordenadas de {lugar} en {ciudad}"
+            query = f"coordenadas de {lugar} en {city}"
             busqueda = search.run(query)
             # coordenadas_prompt = [{"role":"system", "content": "Eres mi asistente, y me tienes que ayudar a extraer los lugares más importantes que visistar para la petición del usuario. Responde siempre en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares a visitar>], 'coordenadas': [<coordenadas de cada lugar en longitud/latitud>]}"}]
             # coordenadas_prompt.append({"role":"user", "content": f"""El usuario desea encontrar las {query}
