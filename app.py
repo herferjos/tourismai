@@ -31,40 +31,7 @@ else:
 
 extra = st.text_input(label=":blue[Any other suggestions]", placeholder="Write here...")
 
-def guia(city, recommendations, duration, horas, extra):
-    responses = []
-    for recommnedation in recommendations:
-        query = f"{recommnedation} en {city}"
-        busqueda = search.run(query)
-        extractor_prompt = [{"role":"system", "content": "Eres mi asistente, y me tienes que ayudar a extraer los lugares más importantes que visistar para la petición del usuario. Responde siempre en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares a visitar>], 'informacion': [<informacion relevante del lugar>]}"}]
-        extractor_prompt.append({"role":"user", "content": f"""El usuario desea encontrar lo siguiente: {query}
-                                Esto ha sido lo que he encontrado en internet: {busqueda}
-                                Recuerda responder en JSON únicamente con lo que te he pedido"""})
-        respuesta = chat(extractor_prompt)
-        
-        # se podria buscar tambien informacion sobre lugares, y no depende de una unica busqueda
-
-        respuesta['coordenadas'] = []
-
-        for lugar in respuesta['lugares']:
-            query = f"coordenadas de {lugar} en {ciudad}"
-            busqueda = search.run(query)
-            extractor_prompt = [{"role":"system", "content": "Eres mi asistente, y me tienes que ayudar a extraer los lugares más importantes que visistar para la petición del usuario. Responde siempre en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares a visitar>], 'coordenadas': [<coordenadas de cada lugar en longitud/latitud>]}"}]
-            extractor_prompt.append({"role":"user", "content": f"""El usuario desea encontrar las {query}
-                                    Esto ha sido lo que he encontrado en internet: {busqueda}
-                                    Recuerda responder en JSON únicamente con lo que te he pedido"""})
-            coordenadas = chat(extractor_prompt)
-            respuesta['coordenadas'].append(coordenadas)
-
-        responses.append(respuesta)
-
-
-
-
-
-
-
-
+guia(city, recommendations, duration, horas, extra)
 
 
 ciudad = st.selectbox("Selecciona la ciudad", ["Madrid", "Barcelona"])
