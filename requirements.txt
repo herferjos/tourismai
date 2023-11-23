@@ -2,3 +2,4 @@ pydeck
 folium
 streamlit-folium
 openrouteservice
+openai
