@@ -49,27 +49,27 @@ if 'planning' in st.session_state:
             st.markdown(f"_**From {day[j]} To {day[j+1]}**_")
             with st.expander("🗺️ Map"):
                 st.write(f"{st.session_state.planning['ordered_coordinates']}")
-                cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
-                cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
+                cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
+                cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
 
-                cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
-                cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
+                cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
+                cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
 
-                m = folium.Map(location=[cord_long_1,cord_lat_1], zoom_start = 16)
+                m = folium.Map(location=[cord_lat_1,cord_long_1], zoom_start = 16)
 
                 folium.Marker(
-                    location=[cord_lat_1, cord_long_1],
+                    location=[cord_long_1, cord_lat_1],
                     popup=day[j],
                     icon=folium.Icon(color="green"),
                 ).add_to(m)
 
                 folium.Marker(
-                    location=[cord_lat_2, cord_long_2],
+                    location=[cord_long_2, cord_lat_2],
                     popup=day[j+1],
                     icon=folium.Icon(color="red"),
                 ).add_to(m) 
 
-                route = get_route(((cord_lat_1, cord_long_1), (cord_lat_2, cord_long_2)))
+                route = get_route(((cord_long_1, cord_lat_1), (cord_long_2, cord_lat_2)))
                 geometry = route['routes'][0]['geometry']
                 decoded = convert.decode_polyline(geometry)
                 distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
