@@ -17,8 +17,8 @@ def get_route(coords):
 
 def get_planning(city, recommendations, duration, horas, extra):
     responses = []
-    for recommnedation in recommendations:
-        query = f"{recommnedation} en {city}"
+    for recommendation in recommendations:
+        query = f"{recommendation} en {city}"
         if recommendation != "Monuments" or "Museums" or "Art Galleries":
             busqueda = search.run(query)
             busqueda = f"This is what I found on the internet: {busqueda}"
