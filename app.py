@@ -36,7 +36,7 @@ if st.button(label = "Generate planning tour", type = "primary"):
         st.session_state.responses, st.session_state.planning = get_planning(city, recommendations, duration, horas, extra)
 
 if 'planning' in st.session_state:
-    st.markdown(st.session_state.planning, unsafe_allow_html=True)
+    st.markdown(st.session_state.planning['html_planning'], unsafe_allow_html=True)
 
 st.write ("---")
 
