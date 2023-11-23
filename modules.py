@@ -1,7 +1,9 @@
 import openrouteservice
 import streamlit as st
+from openai import OpenAI
+client = OpenAI(api_key = st.secrets['openai_key'])
 
-client = openrouteservice.Client(key='5b3ce3597851110001cf6248c946bd142d614eb5ae23bc126f3e9164')
+client = openrouteservice.Client(key=st.secrets['route_key'])
 
 @st.cache_data(persist="disk")
 def get_route(coords):
@@ -57,3 +59,12 @@ def get_planning(city, recommendations, duration, horas, extra):
     planning = chat(planning_prompt)
 
     return responses, planning
+
+def chat(messages):
+  response = client.chat.completions.create(
+    model="gpt-3.5-turbo-1106",
+    messages=messages,
+    response_format={"type": "json_object"},
+  )
+
+  return json.loads(response.choices[0].message.content)
