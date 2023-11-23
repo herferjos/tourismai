@@ -1,7 +1,6 @@
 
 from streamlit_folium import st_folium
 import openrouteservice
-
 import json
 import streamlit as st
 from modules import get_route, get_planning, get_map
@@ -46,15 +45,14 @@ if 'planning' in st.session_state:
 
         for j in range(len(day) - 1):
             st.markdown(f"_**From {day[j]} To {day[j+1]}**_")
+            cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
+            cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
+
+            cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
+            cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
+
+            m = get_map(day, j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
             with st.expander("🗺️ Map"):
-                cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
-                cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
-
-                cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
-                cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
-
-                m = get_map(day, j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
-
                 st_folium(m, width=2000)
 
 # st.write ("---")
