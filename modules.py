@@ -74,7 +74,7 @@ def get_planning(city, recommendations, duration, horas, extra):
     planning_prompt.append({"role":"user", "content": f"""Here are the details to create the tourism itinerary:
                                 City: {city}
                                 Places: {responses}
-                                Tour Duration: {duration} day(s). {hours}
+                                Tour Duration: {duration} day(s). {horas}
                                 {extra}
                                 Remember to respond in JSON format only with what I have asked for"""})
 
