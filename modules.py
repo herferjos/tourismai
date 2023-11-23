@@ -40,7 +40,7 @@ def get_planning(city, recommendations, duration, horas, extra):
         respuesta['coordenadas'] = []
 
         for lugar in respuesta['places']:
-            query = f"coordenadas de {lugar} en {city}"
+            query = f"coordinates (longitude/latitude) of {lugar} in {city} "
             busqueda = search.run(query)
             # coordenadas_prompt = [{"role":"system", "content": "Eres mi asistente, y me tienes que ayudar a extraer los lugares más importantes que visistar para la petición del usuario. Responde siempre en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares a visitar>], 'coordenadas': [<coordenadas de cada lugar en longitud/latitud>]}"}]
             # coordenadas_prompt.append({"role":"user", "content": f"""El usuario desea encontrar las {query}
@@ -49,7 +49,7 @@ def get_planning(city, recommendations, duration, horas, extra):
             coordenadas_prompt = [{"role":"system", "content": "You are my assistant, and you need to help me extract the most important places to visit for the user's request. Always respond in JSON with the following structure: {'places': [<name of the places to visit>], 'coordinates': [<coordinates of each place in longitude/latitude>]}"}]
             coordenadas_prompt.append({"role":"user", "content": f"""The user wants to find {query}
                                                 This is what I found on the internet: {busqueda}
-                                                Remember to respond in JSON format only with what I have asked for"""})
+                                                Remember to respond in JSON format only with what I have asked for. Coordinate format: (longitude/latitude)"""})
 
             coordenadas = chat(coordenadas_prompt)
             respuesta['coordenadas'].append(coordenadas)
