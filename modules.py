@@ -7,9 +7,7 @@ client = OpenAI(api_key = st.secrets['openai_key'])
 
 client2 = openrouteservice.Client(key=st.secrets['route_key'])
 
-@st.cache_resource
 search = DuckDuckGoSearchRun()
-
 
 def get_route(coords):
     res = client2.directions(coords, profile="foot-walking")
