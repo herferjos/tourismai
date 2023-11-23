@@ -3,6 +3,7 @@ import streamlit as st
 from openai import OpenAI
 from langchain.tools import DuckDuckGoSearchRun
 import json
+import folium
 
 client = OpenAI(api_key = st.secrets['openai_key'])
 
@@ -10,6 +11,34 @@ client2 = openrouteservice.Client(key=st.secrets['route_key'])
 
 search = DuckDuckGoSearchRun()
 
+@st.cache_data(persist"disk")
+def get_map(cord_long_1, cord_lat_1, cord_long_2, cord_lat_2):
+
+    m = folium.Map(location=[cord_lat_1,cord_long_1], zoom_start = 16)
+
+    folium.Marker(
+        location=[cord_long_1, cord_lat_1],
+        popup=day[j],
+        icon=folium.Icon(color="red"),
+    ).add_to(m)
+
+    folium.Marker(
+        location=[cord_long_2, cord_lat_2],
+        popup=day[j+1],
+        icon=folium.Icon(color="red"),
+    ).add_to(m) 
+
+    route = get_route(((cord_long_1, cord_lat_1), (cord_long_2, cord_lat_2)))
+    geometry = route['routes'][0]['geometry']
+    decoded = convert.decode_polyline(geometry)
+    distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
+    duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
+
+    folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
+
+    return m
+    
+@st.cache_data(persist"disk")
 def get_route(coords):
     res = client2.directions(coords, profile="foot-walking")
     return res
