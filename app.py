@@ -53,7 +53,7 @@ if 'planning' in st.session_state:
                 cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
                 cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
 
-                m = get_map(day, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
+                m = get_map(day, j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
 
                 st_folium(m, width=2000)
 
