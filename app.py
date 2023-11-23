@@ -25,7 +25,7 @@ recommendatiosn = st.multiselect('What do you want to visit?', ['Restaurants', '
 duration = st.number_input(label=":blue[Nº days]", placeholder="Example: 1 Day Visiting", step = 1)
 
 if duration == 1:
-    horas = st.text_input(label=":blue[How much time?]", placeholder="Example: 2 hours of Tour", step = 1)
+    horas = st.text_input(label=":blue[How much time?]", placeholder="Example: 2 hours of Tour")
 else:
     horas = None
 
