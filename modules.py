@@ -11,7 +11,7 @@ client2 = openrouteservice.Client(key=st.secrets['route_key'])
 
 search = DuckDuckGoSearchRun()
 
-@st.cache_data(persist"disk")
+@st.cache_data(persist="disk")
 def get_map(cord_long_1, cord_lat_1, cord_long_2, cord_lat_2):
 
     m = folium.Map(location=[cord_lat_1,cord_long_1], zoom_start = 16)
@@ -37,7 +37,7 @@ def get_map(cord_long_1, cord_lat_1, cord_long_2, cord_lat_2):
     folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
 
     return m
-    
+
 @st.cache_data(persist"disk")
 def get_route(coords):
     res = client2.directions(coords, profile="foot-walking")
