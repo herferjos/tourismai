@@ -21,7 +21,7 @@ st.markdown(
 st.write("---")
 
 city = st.text_input(label=":blue[City to visit]", placeholder="Write here...")
-recommendatiosn = st.multiselect('What do you want to visit?' ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
+recommendatiosn = st.multiselect('What do you want to visit?', ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
 duration = st.number_input(label=":blue[Nº days]", placeholder="Example: 1 Day Visiting", step = 1)
 
 if duration == 1:
