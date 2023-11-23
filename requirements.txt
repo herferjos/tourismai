@@ -3,3 +3,5 @@ folium
 streamlit-folium
 openrouteservice
 openai
+duckduckgo-search
+langchain

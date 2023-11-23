@@ -1,11 +1,16 @@
 import openrouteservice
 import streamlit as st
 from openai import OpenAI
+from langchain.tools import DuckDuckGoSearchRun
+
 client = OpenAI(api_key = st.secrets['openai_key'])
 
 client2 = openrouteservice.Client(key=st.secrets['route_key'])
 
-@st.cache_data(persist="disk")
+@st.cache_resource
+search = DuckDuckGoSearchRun()
+
+
 def get_route(coords):
     res = client2.directions(coords, profile="foot-walking")
     return res
