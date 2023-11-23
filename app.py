@@ -43,6 +43,8 @@ if 'planning' in st.session_state:
     st.write("## Routes")
     for i in range(len(st.session_state.planning['order'])):
         day = st.session_state.planning['order'][i]
+        st.write(st.session_state.planning['order'])
+
         for j in range(len(day) - 1):
             st.markdown(f"_**From {day[j]} To {day[j+1]}**_")
             with st.expander("🗺️ Map"):
