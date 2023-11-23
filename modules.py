@@ -2,6 +2,7 @@ import openrouteservice
 import streamlit as st
 from openai import OpenAI
 from langchain.tools import DuckDuckGoSearchRun
+import json
 
 client = OpenAI(api_key = st.secrets['openai_key'])
 

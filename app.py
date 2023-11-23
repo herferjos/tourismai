@@ -32,7 +32,8 @@ else:
 extra = st.text_input(label=":blue[Any other suggestions]", placeholder="Write here...")
 
 if st.button(label = "Generate planning tour", type = "primary"):
-    st.session_state.responses, st.session_state.planning = get_planning(city, recommendations, duration, horas, extra)
+     with st.spinner("Generating ⏳ ..."):
+        st.session_state.responses, st.session_state.planning = get_planning(city, recommendations, duration, horas, extra)
 
 if 'planning' in st.session_state:
     st.markdown(st.session_state.planning, unsafe_allow_html=True)
