@@ -19,13 +19,13 @@ def get_map(day,j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2):
 
     folium.Marker(
         location=[cord_long_1, cord_lat_1],
-        popup=day[j],
+        popup=f"{day[j]}",
         icon=folium.Icon(color="red"),
     ).add_to(m)
 
     folium.Marker(
         location=[cord_long_2, cord_lat_2],
-        popup=day[j+1],
+        popup=f"{day[j+1]}",
         icon=folium.Icon(color="red"),
     ).add_to(m) 
 
