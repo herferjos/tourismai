@@ -59,7 +59,7 @@ if 'planning' in st.session_state:
                 folium.Marker(
                     location=[cord_long_1, cord_lat_1],
                     popup=day[j],
-                    icon=folium.Icon(color="green"),
+                    icon=folium.Icon(color="red"),
                 ).add_to(m)
 
                 folium.Marker(
