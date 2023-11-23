@@ -21,13 +21,51 @@ st.markdown(
 st.write("---")
 
 city = st.text_input(label=":blue[City to visit]", placeholder="Write here...")
-recommendatiosn = st.multiselect('What do you want to visit?', ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
+recommendations = st.multiselect(':blue[What do you want to visit?]', ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
 duration = st.number_input(label=":blue[Nº days]", placeholder="Example: 1 Day Visiting", step = 1)
 
 if duration == 1:
     horas = st.text_input(label=":blue[How much time?]", placeholder="Example: 2 hours of Tour")
 else:
     horas = None
+
+extra = st.text_input(label=":blue[Any other suggestions]", placeholder="Write here...")
+
+def guia(city, recommendations, duration, horas, extra):
+    responses = []
+    for recommnedation in recommendations:
+        query = f"{recommnedation} en {city}"
+        busqueda = search.run(query)
+        extractor_prompt = [{"role":"system", "content": "Eres mi asistente, y me tienes que ayudar a extraer los lugares más importantes que visistar para la petición del usuario. Responde siempre en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares a visitar>], 'informacion': [<informacion relevante del lugar>]}"}]
+        extractor_prompt.append({"role":"user", "content": f"""El usuario desea encontrar lo siguiente: {query}
+                                Esto ha sido lo que he encontrado en internet: {busqueda}
+                                Recuerda responder en JSON únicamente con lo que te he pedido"""})
+        respuesta = chat(extractor_prompt)
+        
+        # se podria buscar tambien informacion sobre lugares, y no depende de una unica busqueda
+
+        respuesta['coordenadas'] = []
+
+        for lugar in respuesta['lugares']:
+            query = f"coordenadas de {lugar} en {ciudad}"
+            busqueda = search.run(query)
+            extractor_prompt = [{"role":"system", "content": "Eres mi asistente, y me tienes que ayudar a extraer los lugares más importantes que visistar para la petición del usuario. Responde siempre en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares a visitar>], 'coordenadas': [<coordenadas de cada lugar en longitud/latitud>]}"}]
+            extractor_prompt.append({"role":"user", "content": f"""El usuario desea encontrar las {query}
+                                    Esto ha sido lo que he encontrado en internet: {busqueda}
+                                    Recuerda responder en JSON únicamente con lo que te he pedido"""})
+            coordenadas = chat(extractor_prompt)
+            respuesta['coordenadas'].append(coordenadas)
+
+        responses.append(respuesta)
+
+
+
+
+
+
+
+
+
 
 ciudad = st.selectbox("Selecciona la ciudad", ["Madrid", "Barcelona"])
 
