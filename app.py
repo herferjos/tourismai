@@ -7,6 +7,28 @@ import streamlit as st
 from modules import get_route
 
 
+st.set_page_config(page_title="TourismAI", page_icon="👨📌", layout="wide")
+
+st.markdown(
+  """
+  <div style='text-align: center;'>
+      <h1>👨✈️ TourismAI 📌</h1>
+      <h4> Tour AI-powered Assistant</h4>
+  </div>
+  """,
+    unsafe_allow_html=True
+)
+st.write("---")
+
+city = st.text_input(label=":blue[City to visit]", placeholder="Write here...")
+recommendatiosn = st.multiselect('What do you want to visit?' ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
+duration = st.number_input(label=":blue[Nº days]", placeholder="Example: 1 Day Visiting", step = 1)
+
+if duration == 1:
+    horas = st.text_input(label=":blue[How much time?]", placeholder="Example: 2 hours of Tour", step = 1)
+else:
+    horas = None
+
 ciudad = st.selectbox("Selecciona la ciudad", ["Madrid", "Barcelona"])
 
 if ciudad == "Madrid":
