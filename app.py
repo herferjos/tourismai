@@ -4,7 +4,7 @@ import openrouteservice
 from openrouteservice import convert
 import json
 import streamlit as st
-from modules import get_route
+from modules import get_route, get_planning
 
 
 st.set_page_config(page_title="TourismAI", page_icon="👨📌", layout="wide")
@@ -31,8 +31,13 @@ else:
 
 extra = st.text_input(label=":blue[Any other suggestions]", placeholder="Write here...")
 
-guia(city, recommendations, duration, horas, extra)
+if st.button(label = "Generate planning tour", type = "primary"):
+    st.session_state.responses, st.session_state.planning = get_planning(city, recommendations, duration, horas, extra)
 
+if 'planning' in st.session_state:
+    st.markdown(st.session_state.planning, unsafe_allow_html=True)
+
+st.write ("---")
 
 ciudad = st.selectbox("Selecciona la ciudad", ["Madrid", "Barcelona"])
 
