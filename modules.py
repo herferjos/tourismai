@@ -3,11 +3,11 @@ import streamlit as st
 from openai import OpenAI
 client = OpenAI(api_key = st.secrets['openai_key'])
 
-client = openrouteservice.Client(key=st.secrets['route_key'])
+client2 = openrouteservice.Client(key=st.secrets['route_key'])
 
 @st.cache_data(persist="disk")
 def get_route(coords):
-    res = client.directions(coords, profile="foot-walking")
+    res = client2.directions(coords, profile="foot-walking")
     return res
 
 
