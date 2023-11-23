@@ -38,44 +38,44 @@ if st.button(label = "Generate planning tour", type = "primary"):
 if 'planning' in st.session_state:
     st.markdown(st.session_state.planning['html_planning'], unsafe_allow_html=True)
 
-st.write ("---")
+    st.write ("---")
 
-st.write("## Routes")
-for i in range(len(st.session_state.planning['order'])):
-    day = st.session_state.planning['order'][i]
-    for j in range(len(day) - 1):
-        st.write(f"### From {day[j]} To {day[j+1]}")
-        with st.expander("🗺️ Map"):
-            cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
-            cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
+    st.write("## Routes")
+    for i in range(len(st.session_state.planning['order'])):
+        day = st.session_state.planning['order'][i]
+        for j in range(len(day) - 1):
+            st.write(f"### From {day[j]} To {day[j+1]}")
+            with st.expander("🗺️ Map"):
+                cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
+                cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
 
-            cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
-            cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
+                cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
+                cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
 
-            m = folium.Map(location=[cord_long_1,cord_lat_1], zoom_start = 16)
+                m = folium.Map(location=[cord_long_1,cord_lat_1], zoom_start = 16)
 
-            folium.Marker(
-                location=[cord_lat_1, cord_long_1],
-                popup=day[j],
-                icon=folium.Icon(color="green"),
-            ).add_to(m)
+                folium.Marker(
+                    location=[cord_lat_1, cord_long_1],
+                    popup=day[j],
+                    icon=folium.Icon(color="green"),
+                ).add_to(m)
 
-            folium.Marker(
-                location=[cord_lat_2, cord_long_2],
-                popup=day[j+1],
-                icon=folium.Icon(color="red"),
-            ).add_to(m) 
+                folium.Marker(
+                    location=[cord_lat_2, cord_long_2],
+                    popup=day[j+1],
+                    icon=folium.Icon(color="red"),
+                ).add_to(m) 
 
-            route = get_route(((cord_lat_1, cord_long_1), (cord_lat_2, cord_long_2)))
-            geometry = route['routes'][0]['geometry']
-            decoded = convert.decode_polyline(geometry)
-            distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
-            duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
-            
-            folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
+                route = get_route(((cord_lat_1, cord_long_1), (cord_lat_2, cord_long_2)))
+                geometry = route['routes'][0]['geometry']
+                decoded = convert.decode_polyline(geometry)
+                distance_txt = "<h4> <b>Distance :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['distance']/1000,1))+" Km </strong>" +"</h4></b>"
+                duration_txt = "<h4> <b>Duration :&nbsp" + "<strong>"+str(round(route['routes'][0]['summary']['duration']/60,1))+" Mins. </strong>" +"</h4></b>"
+                
+                folium.GeoJson(decoded).add_child(folium.Popup(distance_txt+duration_txt,max_width=800)).add_to(m)
 
-            st_folium(m, width=2000)
-            
+                st_folium(m, width=2000)
+
 st.write ("---")
 
 ciudad = st.selectbox("Selecciona la ciudad", ["Madrid", "Barcelona"])
