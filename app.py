@@ -46,6 +46,7 @@ if 'planning' in st.session_state:
         for j in range(len(day) - 1):
             st.write(f"### From {day[j]} To {day[j+1]}")
             with st.expander("🗺️ Map"):
+                st.write(f"{st.session_state.planning['ordered_coordinates']}")
                 cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
                 cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
 
