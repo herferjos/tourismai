@@ -19,14 +19,18 @@ def get_planning(city, recommendations, duration, horas, extra):
     responses = []
     for recommnedation in recommendations:
         query = f"{recommnedation} en {city}"
-        busqueda = search.run(query)
+        if recommendation != "Monuments" or "Museums" or "Art Galleries":
+            busqueda = search.run(query)
+            busqueda = f"This is what I found on the internet: {busqueda}"
+        else:
+            busqueda = ""
         # extractor_prompt = [{"role":"system", "content": "Eres mi asistente, y me tienes que ayudar a extraer los lugares más importantes que visistar para la petición del usuario. Responde siempre en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares a visitar>], 'informacion': [<informacion relevante del lugar>]}"}]
         # extractor_prompt.append({"role":"user", "content": f"""El usuario desea encontrar lo siguiente: {query}
         #                         Esto ha sido lo que he encontrado en internet: {busqueda}
         #                         Recuerda responder en JSON únicamente con lo que te he pedido"""})
         extractor_prompt = [{"role":"system", "content": "You are my assistant, and you need to help me extract the most important places to visit for the user's request. Always respond in JSON with the following structure: {'places': [<name of the places to visit>], 'information': [<relevant information about the place>]}"}]
         extractor_prompt.append({"role":"user", "content": f"""The user wants to find the following: {query}
-                                        This is what I found on the internet: {busqueda}
+                                        
                                         Remember to respond in JSON format only with what I have asked for"""})
 
         respuesta = chat(extractor_prompt)
