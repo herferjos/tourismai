@@ -36,6 +36,12 @@ if st.button(label = "Generate planning tour", type = "primary"):
 
 plan, places, routes = st.tabs(['Planning', 'Information', 'Routes'])
 
+
+
+st.write(st.session_state.responses)
+st.write(st.session_state.planning)
+
+
 with plan:
     if 'planning' in st.session_state:
         st.markdown(st.session_state.planning['html_planning'], unsafe_allow_html=True)
@@ -44,24 +50,24 @@ with places:
     st.write ("---")
 
 with routes:
-    
+
     st.write ("---")
 
-        st.write("## Routes")
-        for i in range(len(st.session_state.planning['order'])):
-            day = st.session_state.planning['order'][i]
+    st.write("## Routes")
+    for i in range(len(st.session_state.planning['order'])):
+        day = st.session_state.planning['order'][i]
 
-            for j in range(len(day) - 1):
-                st.markdown(f"_**From {day[j]} To {day[j+1]}**_")
-                cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
-                cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
+        for j in range(len(day) - 1):
+            st.markdown(f"_**From {day[j]} To {day[j+1]}**_")
+            cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
+            cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
 
-                cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
-                cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
+            cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
+            cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
 
-                m = get_map(day, j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
-                with st.expander("🗺️ Map"):
-                    st_folium(m, width=2000)
+            m = get_map(day, j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
+            with st.expander("🗺️ Map"):
+                st_folium(m, width=2000)
 
 # st.write ("---")
 
