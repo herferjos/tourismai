@@ -34,26 +34,34 @@ if st.button(label = "Generate planning tour", type = "primary"):
      with st.spinner("Generating ... ⏳"):
         st.session_state.responses, st.session_state.planning = get_planning(city, recommendations, duration, horas, extra)
 
-if 'planning' in st.session_state:
-    st.markdown(st.session_state.planning['html_planning'], unsafe_allow_html=True)
+plan, places, routes = st.tabs(['Planning', 'Information', 'Routes'])
+
+with plan:
+    if 'planning' in st.session_state:
+        st.markdown(st.session_state.planning['html_planning'], unsafe_allow_html=True)
+with places:
 
     st.write ("---")
 
-    st.write("## Routes")
-    for i in range(len(st.session_state.planning['order'])):
-        day = st.session_state.planning['order'][i]
+with routes:
+    
+    st.write ("---")
 
-        for j in range(len(day) - 1):
-            st.markdown(f"_**From {day[j]} To {day[j+1]}**_")
-            cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
-            cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
+        st.write("## Routes")
+        for i in range(len(st.session_state.planning['order'])):
+            day = st.session_state.planning['order'][i]
 
-            cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
-            cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
+            for j in range(len(day) - 1):
+                st.markdown(f"_**From {day[j]} To {day[j+1]}**_")
+                cord_long_1 = st.session_state.planning['ordered_coordinates'][i][j][0]
+                cord_lat_1 = st.session_state.planning['ordered_coordinates'][i][j][1]
 
-            m = get_map(day, j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
-            with st.expander("🗺️ Map"):
-                st_folium(m, width=2000)
+                cord_long_2 = st.session_state.planning['ordered_coordinates'][i][j+1][0]
+                cord_lat_2 = st.session_state.planning['ordered_coordinates'][i][j+1][1]   
+
+                m = get_map(day, j, cord_long_1, cord_lat_1, cord_long_2, cord_lat_2)
+                with st.expander("🗺️ Map"):
+                    st_folium(m, width=2000)
 
 # st.write ("---")
 
