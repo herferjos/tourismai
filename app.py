@@ -4,7 +4,7 @@ import openrouteservice
 import json
 import streamlit as st
 from modules import get_route, get_planning, get_map
-
+import folium
 
 st.set_page_config(page_title="TourismAI", page_icon="📌", layout="wide")
 
