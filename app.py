@@ -18,9 +18,8 @@ st.write("---")
 
 
 
+st.markdown(f'<a href="https://www.google.es/maps/dir/40.4167047,-3.7035825/40.4179,-3.7144/" target="_blank">Enlace externo</a>', unsafe_allow_html=True)
 
-# embed streamlit docs in a streamlit app
-components.iframe("https://www.google.es/maps/dir/40.4167047,-3.7035825/40.4179,-3.7144/")
 
 
 
