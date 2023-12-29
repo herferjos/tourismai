@@ -5,3 +5,4 @@ openrouteservice
 openai
 duckduckgo-search
 langchain
+pycopy-webbrowser
