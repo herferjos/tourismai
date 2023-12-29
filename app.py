@@ -19,6 +19,8 @@ st.write("---")
 
 st.markdown('<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.64572964356!2d-3.7062766229917394!3d40.41669835563988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287e17b0b2d9%3A0x14755715137f3c3c!2sPrta%20del%20Sol%2C%207%2C%20Centro%2C%2028013%20Madrid!5e0!3m2!1ses!2ses!4v1703876903282!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', unsafe_allow_html=True)
 
+st.markdown('<iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d12150.368683928587!2d-3.719085635961021!3d40.41788464302704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d40.4167047!2d-3.7035825!4m3!3m2!1d40.417899999999996!2d-3.7144!5e0!3m2!1ses!2ses!4v1703877275741!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', unsafe_allow_html=True)
+
 city = st.text_input(label=":blue[City to visit]", placeholder="Escribe tu ciudad...")
 recommendations = st.multiselect(':blue[What do you want to visit?]', ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
 duration = st.number_input(label=":blue[Nº days]", placeholder="Example: 1 Day Visiting", step = 1)
