@@ -19,7 +19,13 @@ st.write("---")
 
 st.markdown(f'<iframe src="https://www.google.es/maps/dir/40.4167047,-3.7035825/40.4179,-3.7144/" width="800" height="600"></iframe>', unsafe_allow_html=True)
 
+import streamlit as st
+import webbrowser
 
+url = 'https://www.streamlit.io/'
+
+if st.button('Open browser'):
+    webbrowser.open_new_tab(url)
 
 
 city = st.text_input(label=":blue[City to visit]", placeholder="Escribe tu ciudad...")
