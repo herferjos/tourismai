@@ -1,6 +1,7 @@
 import json
 import streamlit as st
-from modules import get_planning, get_map
+from modules import get_planning
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="TourismAI", page_icon="📌", layout="wide")
 
@@ -17,8 +18,6 @@ st.write("---")
 
 
 
-import streamlit as st
-import streamlit.components.v1 as components
 
 # embed streamlit docs in a streamlit app
 components.iframe("https://www.google.es/maps/dir/40.4167047,-3.7035825/40.4179,-3.7144/")
