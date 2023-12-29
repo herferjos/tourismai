@@ -1,7 +1,6 @@
 import json
 import streamlit as st
 from modules import get_planning
-import streamlit.components.v1 as components
 
 st.set_page_config(page_title="TourismAI", page_icon="📌", layout="wide")
 
