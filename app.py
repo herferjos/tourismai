@@ -17,15 +17,7 @@ st.markdown(
 st.write("---")
 
 
-st.markdown(f'<iframe src="https://www.google.es/maps/dir/40.4167047,-3.7035825/40.4179,-3.7144/" width="800" height="600"></iframe>', unsafe_allow_html=True)
-
-import streamlit as st
-import webbrowser
-
-url = 'https://www.streamlit.io/'
-
-if st.button('Open browser'):
-    webbrowser.open_new_tab(url)
+st.markdown(f'<iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.64572964356!2d-3.7062766229917394!3d40.41669835563988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287e17b0b2d9%3A0x14755715137f3c3c!2sPrta%20del%20Sol%2C%207%2C%20Centro%2C%2028013%20Madrid!5e0!3m2!1ses!2ses!4v1703876903282!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" width="800" height="600"></iframe>', unsafe_allow_html=True)
 
 
 city = st.text_input(label=":blue[City to visit]", placeholder="Escribe tu ciudad...")
