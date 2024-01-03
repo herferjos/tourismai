@@ -58,8 +58,8 @@ plan, places, routes = st.tabs(['Planning', 'Information', 'Routes'])
 
 
 
-st.write(st.session_state.responses)
-st.write(st.session_state.planning)
+# st.write(st.session_state.responses)
+# st.write(st.session_state.planning)
 
 
 with plan:
