@@ -15,30 +15,8 @@ st.markdown(
 )
 st.write("---")
 
-def mostrar_mapa_ubicacion(latitud, longitud):
-    iframe = f'<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3197.081192205956!2d{longitud}!3d{latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1704301991010!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
-    st.markdown(iframe, unsafe_allow_html=True)
 
-def mostrar_ruta_entre_ubicaciones(latitud_origen, longitud_origen, latitud_destino, longitud_destino):
-    iframe = f'<iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d7177.278003338615!2d{longitud_origen}!3d{latitud_origen}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{latitud_destino}!2d{longitud_destino}!4m3!3m2!1d{latitud_destino}!2d{longitud_destino}!5e0!3m2!1ses!2ses!4v1704302063485!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
-    st.markdown(iframe, unsafe_allow_html=True)
-
-# Coordenadas del Palacio Real en Madrid
-latitud_palacio_real = 40.4171
-longitud_palacio_real = -3.7138
-
-# Coordenadas del Estadio Santiago Bernabéu
-latitud_bernabeu = 40.4530
-longitud_bernabeu = -3.6883
-
-# Mostrar la ubicación del Palacio Real
-mostrar_mapa_ubicacion(latitud_palacio_real, longitud_palacio_real)
-
-# Mostrar la ruta entre el Palacio Real y el Estadio Santiago Bernabéu
-mostrar_ruta_entre_ubicaciones(latitud_palacio_real, longitud_palacio_real, latitud_bernabeu, longitud_bernabeu)
-
-
-def generar_iframe(partida, destino, width=600, height=450):
+def generar_iframe_ruta(partida, destino, width=600, height=450):
     # Construir la URL de Google Maps con las coordenadas de partida y destino
     url = f"https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d12787.787595039294!2d-4.100142888770666!3d36.74784565619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{partida[0]}!2d{partida[1]}!4m3!3m2!1d{destino[0]}!2d{destino[1]}!5e0!3m2!1ses!2ses"
 
@@ -46,18 +24,33 @@ def generar_iframe(partida, destino, width=600, height=450):
     iframe_code = f'<iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
   
     st.markdown(iframe_code, unsafe_allow_html=True)
-  
-    return
 
 # Ejemplo de uso:
 partida_1 = (36.748517, -4.0841792)
 destino_1 = (36.7513906, -4.0950763)
-generar_iframe(partida_1, destino_1)
+generar_iframe_ruta(partida_1, destino_1)
 
 
 partida_2 = (36.748517, -4.0841792)
 destino_2 = (36.7594504, -4.0923752)
-generar_iframe(partida_2, destino_2)
+generar_iframe_ruta(partida_2, destino_2)
+
+
+def generar_iframe_ubicacion(ubicacion, width=600, height=450):
+    # Construir la URL de Google Maps con la ubicación dada
+    url = f"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3196.9189286691085!2d{ubicacion[1]}!3d{ubicacion[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDQ0JzU0LjciTiA0wrAwNScwMy4xIlc!5e0!3m2!1ses!2ses!4v1704303241303!5m2!1ses!2ses"
+
+    # Crear el código del iframe
+    iframe_code = f'<iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+    
+    st.markdown(iframe_code, unsafe_allow_html=True)
+
+# Ejemplo de uso:
+ubicacion_1 = (36.748517, -4.0841792)
+generar_iframe_ubicacion(ubicacion_1)
+
+ubicacion_2 = (36.7594504, -4.0923752)
+generar_iframe_ubicacion(ubicacion_2)
 
 
 
