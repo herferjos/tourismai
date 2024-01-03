@@ -15,10 +15,20 @@ st.markdown(
 )
 st.write("---")
 
+def mostrar_mapa_ubicacion(latitud, longitud):
+    iframe = f'<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3197.081192205956!2d{longitud}!3d{latitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1704301991010!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+    st.markdown(iframe, unsafe_allow_html=True)
 
-st.markdown('<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.64572964356!2d-3.7062766229917394!3d40.41669835563988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42287e17b0b2d9%3A0x14755715137f3c3c!2sPrta%20del%20Sol%2C%207%2C%20Centro%2C%2028013%20Madrid!5e0!3m2!1ses!2ses!4v1703876903282!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', unsafe_allow_html=True)
+def mostrar_ruta_entre_ubicaciones(latitud_origen, longitud_origen, latitud_destino, longitud_destino):
+    iframe = f'<iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d7177.278003338615!2d{longitud_origen}!3d{latitud_origen}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{latitud_destino}!2d{longitud_destino}!4m3!3m2!1d{latitud_destino}!2d{longitud_destino}!5e0!3m2!1ses!2ses!4v1704302063485!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+    st.markdown(iframe, unsafe_allow_html=True)
 
-st.markdown('<iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d12150.368683928587!2d-3.719085635961021!3d40.41788464302704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d40.4167047!2d-3.7035825!4m3!3m2!1d40.417899999999996!2d-3.7144!5e0!3m2!1ses!2ses!4v1703877275741!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', unsafe_allow_html=True)
+# Ejemplo de uso para mostrar una ubicación
+mostrar_mapa_ubicacion(36.744622170829764, -4.100784123692327)
+
+# Ejemplo de uso para mostrar una ruta entre dos ubicaciones
+mostrar_ruta_entre_ubicaciones(36.74383683585016, -4.090056026612044, 36.74618963601809, -4.095419603460178)
+
 
 city = st.text_input(label=":blue[City to visit]", placeholder="Escribe tu ciudad...")
 recommendations = st.multiselect(':blue[What do you want to visit?]', ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
