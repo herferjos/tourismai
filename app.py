@@ -23,11 +23,20 @@ def mostrar_ruta_entre_ubicaciones(latitud_origen, longitud_origen, latitud_dest
     iframe = f'<iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d7177.278003338615!2d{longitud_origen}!3d{latitud_origen}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{latitud_destino}!2d{longitud_destino}!4m3!3m2!1d{latitud_destino}!2d{longitud_destino}!5e0!3m2!1ses!2ses!4v1704302063485!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
     st.markdown(iframe, unsafe_allow_html=True)
 
-# Ejemplo de uso para mostrar una ubicación
-mostrar_mapa_ubicacion(36.744622170829764, -4.100784123692327)
+# Coordenadas del Palacio Real en Madrid
+latitud_palacio_real = 40.4171
+longitud_palacio_real = -3.7138
 
-# Ejemplo de uso para mostrar una ruta entre dos ubicaciones
-mostrar_ruta_entre_ubicaciones(36.74383683585016, -4.090056026612044, 36.74618963601809, -4.095419603460178)
+# Coordenadas del Estadio Santiago Bernabéu
+latitud_bernabeu = 40.4530
+longitud_bernabeu = -3.6883
+
+# Mostrar la ubicación del Palacio Real
+mostrar_mapa_ubicacion(latitud_palacio_real, longitud_palacio_real)
+
+# Mostrar la ruta entre el Palacio Real y el Estadio Santiago Bernabéu
+mostrar_ruta_entre_ubicaciones(latitud_palacio_real, longitud_palacio_real, latitud_bernabeu, longitud_bernabeu)
+
 
 
 city = st.text_input(label=":blue[City to visit]", placeholder="Escribe tu ciudad...")
