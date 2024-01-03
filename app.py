@@ -25,15 +25,11 @@ def generar_iframe_ruta(partida, destino, width=600, height=450):
   
     st.markdown(iframe_code, unsafe_allow_html=True)
 
-# Ejemplo de uso:
-partida_1 = (36.748517, -4.0841792)
-destino_1 = (36.7513906, -4.0950763)
-generar_iframe_ruta(partida_1, destino_1)
 
 
-partida_2 = (36.748517, -4.0841792)
-destino_2 = (36.7594504, -4.0923752)
-generar_iframe_ruta(partida_2, destino_2)
+generar_iframe_ruta((40.4167047, -3.7035825), (40.4152099, -3.6835705))
+
+generar_iframe_ruta((40.4139232, -3.6921014), (40.4155185, -3.7071406))
 
 
 def generar_iframe_ubicacion(ubicacion, width=600, height=450):
@@ -45,12 +41,10 @@ def generar_iframe_ubicacion(ubicacion, width=600, height=450):
     
     st.markdown(iframe_code, unsafe_allow_html=True)
 
-# Ejemplo de uso:
-ubicacion_1 = (36.748517, -4.0841792)
-generar_iframe_ubicacion(ubicacion_1)
 
-ubicacion_2 = (36.7594504, -4.0923752)
-generar_iframe_ubicacion(ubicacion_2)
+generar_iframe_ubicacion((40.4167047, -3.7035825))
+
+generar_iframe_ubicacion((40.4155185, -3.7071406))
 
 
 
