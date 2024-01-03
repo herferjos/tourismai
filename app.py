@@ -38,6 +38,29 @@ mostrar_mapa_ubicacion(latitud_palacio_real, longitud_palacio_real)
 mostrar_ruta_entre_ubicaciones(latitud_palacio_real, longitud_palacio_real, latitud_bernabeu, longitud_bernabeu)
 
 
+def generar_iframe(partida, destino, width=600, height=450):
+    # Construir la URL de Google Maps con las coordenadas de partida y destino
+    url = f"https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d12787.787595039294!2d-4.100142888770666!3d36.74784565619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{partida[0]}!2d{partida[1]}!4m3!3m2!1d{destino[0]}!2d{destino[1]}!5e0!3m2!1ses!2ses"
+
+    # Crear el código del iframe
+    iframe_code = f'<iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+  
+    st.markdown(iframe_code, unsafe_allow_html=True)
+  
+    return
+
+# Ejemplo de uso:
+partida_1 = (36.748517, -4.0841792)
+destino_1 = (36.7513906, -4.0950763)
+generar_iframe(partida_1, destino_1)
+
+
+partida_2 = (36.748517, -4.0841792)
+destino_2 = (36.7594504, -4.0923752)
+generar_iframe(partida_2, destino_2)
+
+
+
 
 city = st.text_input(label=":blue[City to visit]", placeholder="Escribe tu ciudad...")
 recommendations = st.multiselect(':blue[What do you want to visit?]', ['Restaurants', 'Monuments', 'Art Galleries', 'Museums', 'Pubs', 'Street markets', 'Shopping Centers'])
