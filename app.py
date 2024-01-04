@@ -19,31 +19,33 @@ st.write("---")
 def generar_iframe_ruta(partida, destino, width=600, height=450):
     # Construir la URL de Google Maps con las coordenadas de partida y destino
     url = f"https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d12787.787595039294!2d-4.100142888770666!3d36.74784565619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{partida[0]}!2d{partida[1]}!4m3!3m2!1d{destino[0]}!2d{destino[1]}!5e0!3m2!1ses!2ses"
+
     # Crear el código del iframe
     iframe_code = f'<iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
-  
-    st.markdown(iframe_code, unsafe_allow_html=True)
-
-
-
-generar_iframe_ruta((40.4167047, -3.7035825), (40.4152099, -3.6835705))
-
-generar_iframe_ruta((40.4139232, -3.6921014), (40.4155185, -3.7071406))
-
 
 def generar_iframe_ubicacion(ubicacion, width=600, height=450):
     # Construir la URL de Google Maps con la ubicación dada
     url = f"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d399.6654334697037!2d{ubicacion[1]}!3d{ubicacion[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1704362432106!5m2!1ses!2ses"
-    url = f"https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d12787.787595039294!2d-4.100142888770666!3d36.74784565619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{ubicacion[0]}!2d{ubicacion[1]}!4m3!3m2!1d{ubicacion[0]}!2d{ubicacion[1]}!5e0!3m2!1ses!2ses"
+
     # Crear el código del iframe
     iframe_code = f'<iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
-    
+
     st.markdown(iframe_code, unsafe_allow_html=True)
 
 
 generar_iframe_ubicacion((40.4167047, -3.7035825))
 
 generar_iframe_ubicacion((40.4155185, -3.7071406))
+
+
+
+generar_iframe_ruta((40.4167047, -3.7035825), (40.4167047, -3.7035825))
+
+generar_iframe_ruta((40.4155185, -3.7071406), (40.4155185, -3.7071406))
+
+
+
+
 
 
 
