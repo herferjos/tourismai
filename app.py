@@ -42,9 +42,9 @@ def generar_iframe_ubicacion(ubicacion, width=600, height=450):
     st.markdown(iframe_code, unsafe_allow_html=True)
 
 
-generar_iframe_ubicacion((40.4167047, -3.7035825))
+generar_iframe_ruta((40.4167047, -3.7035825), (40.4167047, -3.7035825))
 
-generar_iframe_ubicacion((40.4155185, -3.7071406))
+generar_iframe_ruta((40.4155185, -3.7071406), (40.4155185, -3.7071406))
 
 
 
