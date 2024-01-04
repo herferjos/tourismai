@@ -27,7 +27,7 @@ def generar_iframe_ruta(partida, destino, width=600, height=450):
 
 def generar_iframe_ubicacion(ubicacion, width=600, height=450):
     # Construir la URL de Google Maps con la ubicación dada
-    url = f"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d399.6654334697037!2d{ubicacion[1]}!3d{ubicacion[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1704362432106!5m2!1ses!2ses"
+    url = f"https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d399.59999335038805!2d{ubicacion[1]}!3d{ubicacion[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d{ubicacion[0]}!2d{ubicacion[1]}!5e0!3m2!1ses!2ses!4v1704363843022!5m2!1ses!2ses"
 
     # Crear el código del iframe
     iframe_code = f'<iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
