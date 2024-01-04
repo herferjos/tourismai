@@ -26,8 +26,6 @@ def generar_iframe_ruta(partida, destino, width=600, height=450):
     st.markdown(iframe_code, unsafe_allow_html=True)
 
 
-st.markdown('<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4iE2xVSpkLLOXoyqT-RuPwURN3ddScAI&q=Eiffel+Tower,Paris+France" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>', unsafe_allow_html=True)
-
 
 generar_iframe_ruta((40.4167047, -3.7035825), (40.4152099, -3.6835705))
 
