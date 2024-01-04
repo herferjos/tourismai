@@ -34,16 +34,16 @@ def generar_iframe_ubicacion(ubicacion, width=1500, height=750):
 
     st.markdown(iframe_code, unsafe_allow_html=True)
 
+with st.expander("Mapa"):
+  generar_iframe_ubicacion((40.4167047, -3.7035825))
+with st.expander("Mapa"):
+  generar_iframe_ubicacion((40.4155185, -3.7071406))
 
-generar_iframe_ubicacion((40.4167047, -3.7035825))
 
-generar_iframe_ubicacion((40.4155185, -3.7071406))
-
-
-
-generar_iframe_ruta((40.4169, -3.7038), (40.4172, -3.7130))
-
-generar_iframe_ruta((40.4150, -3.6823), (40.4139, -3.6923))
+with st.expander("Mapa"):
+  generar_iframe_ruta((40.4169, -3.7038), (40.4172, -3.7130))
+with st.expander("Mapa"):
+  generar_iframe_ruta((40.4150, -3.6823), (40.4139, -3.6923))
 
 
 
