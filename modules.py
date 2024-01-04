@@ -7,76 +7,76 @@ client = OpenAI(api_key = st.secrets['openai_key'])
 
 search = DuckDuckGoSearchRun()
 
-def get_planning(city, recommendations, duration, horas, extra):
-    responses = []
-    for recommendation in recommendations:
-        query = f"{recommendation} en {city}"
-        if recommendation != "Monuments" or "Museums" or "Art Galleries":
-            busqueda = search.run(query)
-            busqueda = f"This is what I found on the internet: {busqueda}"
+def get_planning(ciudad, recomendaciones, duracion, horas, extra):
+    respuestas = []
+    for recomendacion in recomendaciones:
+        consulta = f"{recomendacion} en {ciudad}"
+        if recomendacion != "Monumentos" or "Museos" or "Galerías de arte":
+            busqueda = search.run(consulta)
+            busqueda = f"Esto es lo que encontré en internet: {busqueda}"
 
-            extractor_prompt = [{"role":"system", "content": "You are my assistant, and you need to help me extract the most important places to visit for the user's request. Always respond in JSON with the following structure: {'places': [<name of the places to visit>]}"}]
-            extractor_prompt.append({"role":"user", "content": f"""The user wants to find the following: {query}
+            extractor_prompt = [{"role":"system", "content": "Eres mi asistente y necesitas ayudarme a extraer los lugares más importantes para visitar según la solicitud del usuario. Siempre responde en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares para visitar>]}"}]
+            extractor_prompt.append({"role":"user", "content": f"""El usuario desea encontrar lo siguiente: {consulta}
                                             {busqueda}
-                                            Remember to respond in JSON format only with what I have asked for"""})
+                                            Recuerda responder solo en formato JSON con lo que he solicitado."""})
 
-            lugares = chat(extractor_prompt)['places']
+            lugares = chat(extractor_prompt)['lugares']
             busquedas = []
             for lugar in lugares:
                 busqueda = search.run(lugar)
                 busquedas.append(busqueda)
 
-            extractor_prompt = [{"role":"system", "content": "You are my assistant, and you need to help me extract the most important information of the places for the user's request. Always respond in JSON with the following structure: {'places': [<name of the places to visit>], 'information': [<relevant information about the place>]}"}]
-            extractor_prompt.append({"role":"user", "content": f"""The user wants to visit {lugares} in {city}. Please give all information you know about that places.
-                                            Information I found on internet: {busquedas}
-                                            Remember to respond in JSON format only with what I have asked for"""})
+            extractor_prompt = [{"role":"system", "content": "Eres mi asistente y necesitas ayudarme a extraer la información más importante de los lugares según la solicitud del usuario. Siempre responde en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares para visitar>], 'informacion': [<información relevante sobre el lugar>]}"}]
+            extractor_prompt.append({"role":"user", "content": f"""El usuario desea visitar {lugares} en {ciudad}. Por favor, proporciona toda la información que sepas sobre esos lugares.
+                                            Información que encontré en internet: {busquedas}
+                                            Recuerda responder solo en formato JSON con lo que he solicitado."""})
                     
             respuesta = chat(extractor_prompt)
-            responses.append(respuesta)
+            respuestas.append(respuesta)
         else:
-            extractor_prompt = [{"role":"system", "content": "You are my assistant, and you need to help me generate the most important places to visit for the user's request. Always respond in JSON with the following structure: {'places': [<name of the places to visit>], 'information': [<relevant information about the place>]}"}]
-            extractor_prompt.append({"role":"user", "content": f"""The user wants to visit {city} for {recommendation}. Please give all information you know about places
-                                            Remember to respond in JSON format only with what I have asked for"""})
+            extractor_prompt = [{"role":"system", "content": "Eres mi asistente y necesitas ayudarme a generar los lugares más importantes para visitar según la solicitud del usuario. Siempre responde en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares para visitar>], 'informacion': [<información relevante sobre el lugar>]}"}]
+            extractor_prompt.append({"role":"user", "content": f"""El usuario desea visitar {ciudad} por {recomendacion}. Por favor, proporciona toda la información que sepas sobre los lugares.
+                                            Recuerda responder solo en formato JSON con lo que he solicitado."""})
 
             respuesta = chat(extractor_prompt)
-            responses.append(respuesta)
+            respuestas.append(respuesta)
             
         respuesta['coordenadas'] = []
 
-        for lugar in respuesta['places']:
-            query = f"coordinates (longitude/latitude) of {lugar} in {city} "
-            busqueda = search.run(query)
-            coordenadas_prompt = [{"role":"system", "content": "You are my assistant, and you need to help me extract the most important places to visit for the user's request. Always respond in JSON with the following structure: {'places': [<name of the places to visit>], 'coordinates': [<coordinates of each place in longitude/latitude>]}"}]
-            coordenadas_prompt.append({"role":"user", "content": f"""The user wants to find {query}
-                                                This is what I found on the internet: {busqueda}
-                                                Remember to respond in JSON format only with what I have asked for. Coordinate format: (longitude/latitude)"""})
+        for lugar in respuesta['lugares']:
+            consulta = f"coordenadas (longitud/latitud) de {lugar} en {ciudad} "
+            busqueda = search.run(consulta)
+            coordenadas_prompt = [{"role":"system", "content": "Eres mi asistente y necesitas ayudarme a extraer los lugares más importantes para visitar según la solicitud del usuario. Siempre responde en JSON con la siguiente estructura: {'lugares': [<nombre de los lugares para visitar>], 'coordenadas': [<coordenadas de cada lugar en longitud/latitud>]}"}]
+            coordenadas_prompt.append({"role":"user", "content": f"""El usuario desea encontrar {consulta}
+                                                Esto es lo que encontré en internet: {busqueda}
+                                                Recuerda responder solo en formato JSON con lo que he solicitado. Formato de coordenadas: (longitud/latitud)"""})
 
             coordenadas = chat(coordenadas_prompt)
             respuesta['coordenadas'].append(coordenadas)
 
-        responses.append(respuesta)
+        respuestas.append(respuesta)
 
     if horas == "":
         pass
     else:
-        horas = f"El usuario específica que debe durar: {horas}"
+        horas = f"El usuario especifica que debe durar: {horas}"
 
     if extra == "":
         pass
     else:
         extra = f"Información extra del usuario: {extra}"
 
-    planning_prompt = [{"role":"system", "content": "You are my tourism assistant, and you need to help me create an itinerary for my tourists. I will provide you with all the necessary information to build the tourism itinerary: city, places, duration, and any additional user instructions. Your function is to return an HTML-formatted string to display on the web, so make use of all HTML tools to highlight and beautify the text. You also need to provide me with the order of visiting places, meaning you can visit all places in 1 day if the user requests a one-day itinerary, or you can spread it over multiple days. In the order, you should write a list of places ordered by the visit order in lists of days. Example: [['place_1', 'place_2'], ['place_3', 'place_4']]. Here, place_1 and place_2 are visited on the 1st day, and place_3 and place_4 on the 2nd day. Also, remember to provide the coordinates in the same order and maintain the format of coordinates as: (longitude, latitude). Your output should be in JSON format as follows: {'html_planning': <here goes the HTML string to be printed>, 'order': [<list of places ordered by visit order and day in lists of lists>], 'ordered_coordinates':[<list of coordinates of places to visit in order, and by days in lists of lists>]}"}]
-    planning_prompt.append({"role":"user", "content": f"""Here are the details to create the tourism itinerary:
-                                City: {city}
-                                Places: {responses}
-                                Tour Duration: {duration} day(s). {horas}
+    planning_prompt = [{"role":"system", "content": "Eres mi asistente turístico y necesitas ayudarme a crear un itinerario para mis turistas. Te proporcionaré toda la información necesaria para construir el itinerario turístico: ciudad, lugares, duración e instrucciones adicionales del usuario. Tu función es devolver una cadena con formato HTML para mostrar en la web, así que utiliza todas las herramientas de HTML para resaltar y embellecer el texto. También debes proporcionarme el orden de visita de los lugares, lo que significa que puedes visitar todos los lugares en 1 día si el usuario solicita un itinerario de un día, o puedes distribuirlo en varios días. En el orden, debes escribir una lista de lugares ordenados por el orden de visita en listas de días. Ejemplo: [['lugar_1', 'lugar_2'], ['lugar_3', 'lugar_4']]. Aquí, lugar_1 y lugar_2 se visitan el primer día, y lugar_3 y lugar_4 el segundo día. Además, recuerda proporcionar las coordenadas en el mismo orden y mantener el formato de coordenadas como: (longitud, latitud). Tu salida debe estar en formato JSON de la siguiente manera: {'html_planificacion': <aquí va la cadena HTML para imprimir>, 'orden': [<lista de lugares ordenados por orden de visita y día en listas de listas>], 'coordenadas_ordenadas':[<lista de coordenadas de lugares para visitar en orden y por días en listas de listas>]}"}]
+    planning_prompt.append({"role":"user", "content": f"""Aquí están los detalles para crear el itinerario turístico:
+                                Ciudad: {ciudad}
+                                Lugares: {respuestas}
+                                Duración del tour: {duracion} día(s). {horas}
                                 {extra}
-                                Remember to respond in JSON format only with what I have asked for"""})
+                                Recuerda responder solo en formato JSON con lo que he solicitado."""})
 
-    planning = chat(planning_prompt)
+    planificacion = chat(planning_prompt)
 
-    return responses, planning
+    return respuestas, planificacion
 
 def chat(messages):
   response = client.chat.completions.create(
@@ -86,3 +86,22 @@ def chat(messages):
   )
 
   return json.loads(response.choices[0].message.content)
+
+
+def generar_iframe_ruta(partida, destino, width=1500, height=750):
+    # Construir la URL de Google Maps con las coordenadas de partida y destino
+    url = f"https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d12787.787595039294!2d-4.100142888770666!3d36.74784565619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e6!4m3!3m2!1d{partida[0]}!2d{partida[1]}!4m3!3m2!1d{destino[0]}!2d{destino[1]}!5e0!3m2!1ses!2ses"
+
+    # Crear el código del iframe
+    iframe_code = f'<div style="text-align: center;"><iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>'
+
+    st.markdown(iframe_code, unsafe_allow_html=True)
+
+def generar_iframe_ubicacion(ubicacion, width=1500, height=750):
+    # Construir la URL de Google Maps con la ubicación dada
+    url = f"https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d399.59999335038805!2d{ubicacion[1]}!3d{ubicacion[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d{ubicacion[0]}!2d{ubicacion[1]}!5e0!3m2!1ses!2ses!4v1704363843022!5m2!1ses!2ses"
+
+    # Crear el código del iframe
+    iframe_code = f'<div style="text-align: center;"><iframe src="{url}" width="{width}" height="{height}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>'
+
+    st.markdown(iframe_code, unsafe_allow_html=True)
